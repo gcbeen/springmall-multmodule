@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gcbeen.springmallmultmodule</groupId>
+    <artifactId>springmall-multmodule</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>com.gcbeen.springmallportal</groupId>
+  <artifactId>springmall-portal</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>springmall-portal</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+
+		<dependency>
+			<groupId>com.gcbeen.springmallcommon</groupId>
+			<artifactId>springmall-common</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gcbeen.springmallgenerator</groupId>
+			<artifactId>springmall-generator</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gcbeen.springmallsecurity</groupId>
+			<artifactId>springmall-security</artifactId>
+		</dependency>
+
+    <!---mongodb相关依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+    <!--消息队列相关依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+  </dependencies>
+</project>

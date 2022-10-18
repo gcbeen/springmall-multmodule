@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcbeen.springmalladmin.dao.UmsAdminRoleRelationDao">
+
+    <!--批量新增回写主键支持-->
+    <insert id="insertList">
+        INSERT INTO ums_admin_role_relation (admin_id, role_id) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (#{item.adminId,jdbcType=BIGINT},
+            #{item.roleId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <select id="getRoleList" resultMap="com.gcbeen.springmallgenerator.model.UmsRole">
+        SELECT 
+            r.* 
+        FROM ums_admin_role_relation ar 
+        LEFT JOIN ums_role r 
+            ON ar.role_id = r.id
+        WHERE ar.admin_id = #{adminId}
+    </select>
+    <select id="getResourceList" resultType="com.gcbeen.springmallgenerator.model.UmsResource">
+        SELECT
+            re.id id,
+            re.create_time createTime,
+            re.`name` `name`,
+            re.url url,
+            re.description description,
+            re.category_id categoryId
+        FROM
+            ums_admin_role_relation ar
+        LEFT JOIN ums_role r 
+            ON ar.role_id = r.id
+        LEFT JOIN ums_role_resource_relation rr 
+            ON r.id = rr.role_id
+        LEFT JOIN ums_resource re 
+            ON re.id = rr.resource_id
+        WHERE
+            ar.admin_id = #{adminId}
+        AND re.id IS NOT NULL
+        GROUP BY
+            re.id
+    </select>
+
+    <select id="getAdminIdList" resultType="java.lang.Long">
+        SELECT 
+            DISTINCT ar.admin_id 
+        FROM ums_role_resource_relation rr 
+            LEFT JOIN ums_admin_role_relation ar 
+                ON rr.role_id = ar.role_id 
+        WHERE rr.resource_id=#{resourceId} 
+    </select>
+
+</mapper>

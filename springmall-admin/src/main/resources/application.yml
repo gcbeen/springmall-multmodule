@@ -1,0 +1,135 @@
+# DataSource Config
+# spring:
+#   datasource:
+#     driver-class-name: org.h2.Driver
+#     schema: classpath:db/schema-h2.sql
+#     data: classpath:db/data-h2.sql
+#     url: jdbc:h2:mem:test
+#     username: root
+#     password: test
+spring:
+  application:
+    name: springmall
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springmall?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: JavaScriptGO@123456
+  # main:
+  #   allow-circular-references: true
+  data:
+    # elasticsearch
+    # elasticsearch:
+    #   repositories:
+    #     enabled: true
+    #   cluster-nodes: 127.0.0.1:9300 # es的连接地址及端口号
+    #   cluster-name: elasticsearch # es集群的名称
+    # mongodb
+    mongodb:
+      host: localhost # mongodb的连接地址
+      port: 27017 # mongodb的连接端口号
+      database: mall-port # mongodb的连接的数据库
+
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    jedis:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+    timeout: 3000ms # 连接超时时间（毫秒）
+
+  rabbitmq:
+    host: localhost # rabbitmq的连接地址
+    port: 5672 # rabbitmq的连接端口号
+    virtual-host: /mall # rabbitmq的虚拟host
+    username: mall # rabbitmq的用户名
+    password: mall # rabbitmq的密码
+    publisher-confirms: true #如果对异步消息需要回调必须设置为true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # http:
+  #   # multipart config
+  #   multipart:
+  #     enabled: true
+  #     location: /Users/gcbeen/00-guide/back_end_pro/springmall/tmp
+  #     file-size-threshold: 5MB
+  #     max-request-size: 20MB
+
+mybatis-plus:
+  type-aliases-package: com.gcbeen.springmall.model
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #mybatisplus控制台输出sql及数据
+
+
+# 自定义redis key
+# redis:
+#   key:
+#     prefix:
+#       authCode: "portal:authCode:"
+#     expire:
+#       authCode: 120 # 验证码超期时间
+
+redis:
+  database: springmall
+  key:
+    admin: 'ums:admin'
+    resourceList: 'ums:resourceList'
+    prefix:
+      authCode: "portal:authCode:" # 验证码 前缀
+    expire:
+      authCode: 120 # 验证码 过期时间
+  expire:
+    common: 86400 # 24小时
+
+minio:
+  url: http://localhost:9001  #对象存储服务的URL
+  accessKey: minioadmin#账户
+  secretKey: minioadmin #密码
+
+# Logger Config
+logging:
+  level:
+    "[com.gcbeen.springmall]": debug
+
+
+# 自定义jwt key
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: gcbeenSecret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      # - /swagger-ui.html
+      # - /swagger-resources/**
+      # - /swagger/**
+      # - /**/v2/api-docs
+      # - /**/*.js
+      # - /**/*.css
+      # - /**/*.png
+      # - /**/*.ico
+      # - /webjars/springfox-swagger-ui/**
+      # - /druid/**
+      # - /actuator/**
+      # - /sso/**
+      # - /home/**
+      - /
+      - /*.html
+      - /favicon.ico
+      - /**/*.html
+      - /**/*.css
+      - /**/*.js
+      - /swagger-resources/**
+      - /v3/api-docs/**
+      - /admin/login
+      - /admin/register

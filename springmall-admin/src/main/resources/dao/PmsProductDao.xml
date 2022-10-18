@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcbeen.springmalladmin.dao.PmsProductDao">
+ <!--  namespace="接口全称" -->
+    <!-- 通用查询映射结果 -->
+    <!-- <resultMap id="BaseResultMap" type="com.gcbeen.springmall.model.Product">
+        <id column="id" property="id" />
+        <result column="brand_id" property="brandId" />
+        <result column="name" property="name" />
+    </resultMap> -->
+
+    <!-- 通用查询结果列 -->
+    <!-- <sql id="Base_Column_List">
+        id, brand_id, name
+    </sql> -->
+
+    <!-- 对应 mapper 接口的 方法 pageList -->
+    <select id="pageList" resultType="com.gcbeen.springmallgenerator.model.PmsProduct">
+        SELECT id, brand_id, name FROM pms_product WHERE brand_id =#{brandId}
+    </select>
+
+</mapper>
